@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Telegram",
+    "scheme": "myTelegram",
     "slug": "Telegram",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +25,10 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
