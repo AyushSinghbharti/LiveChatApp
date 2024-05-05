@@ -30,6 +30,7 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
     "react-native-web": "~0.19.6",
+    "stream-chat": "^8.31.0",
     "stream-chat-expo": "^5.29.0",
     "typescript": "^5.3.0"
   },
