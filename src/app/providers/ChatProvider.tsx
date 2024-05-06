@@ -33,7 +33,7 @@ export default function ChatProvider({ children }: PropsWithChildren) {
       if (isReady) client.disconnectUser();
       setIsReady(false);
     };
-  }, []);
+  }, [profile?.id]);
 
   if (!isReady) {
     return (
