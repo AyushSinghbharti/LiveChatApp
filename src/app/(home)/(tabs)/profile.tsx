@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../../lib/supabase";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, ScrollView } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { Session } from "@supabase/supabase-js";
 import { useAuth } from "../../providers/AuthProvider";
+import Avatar from "../../../components/Avatar";
 
 export default function ProfileScreen() {
   const { session } = useAuth();
@@ -84,9 +85,24 @@ export default function ProfileScreen() {
       setLoading(false);
     }
   }
-
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View>
+        <Avatar
+          size={150}
+          url={avatarUrl}
+          onUpload={(url: string) => {
+            setAvatarUrl(url);
+            updateProfile({
+              username,
+              website,
+              avatar_url: url,
+              full_name: fullname,
+            });
+          }}
+        />
+      </View>
+
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input label="Email" value={session?.user?.email} disabled />
       </View>
@@ -116,22 +132,27 @@ export default function ProfileScreen() {
         <Button
           title={loading ? "Loading ..." : "Update"}
           onPress={() =>
-            updateProfile({ username, website, avatar_url: avatarUrl, full_name: fullname})
+            updateProfile({
+              username,
+              website,
+              avatar_url: avatarUrl,
+              full_name: fullname,
+            })
           }
           disabled={loading}
         />
       </View>
 
-      <View style={styles.verticallySpaced}>
+      <View style={[styles.verticallySpaced]}>
         <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
       </View>
-    </View>
+      <View style={{height: 20}} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
     padding: 12,
   },
   verticallySpaced: {
